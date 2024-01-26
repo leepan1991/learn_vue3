@@ -1,0 +1,58 @@
+<template>
+  <div class="person">
+    <h2>姓名：{{ name }}</h2>
+    <h2>年龄：{{ age }}</h2>
+    <button @click="changeName">修改名称</button>
+    <button @click="changeAge">修改年龄</button>
+    <button @click="showTel">查看联系方式</button>
+  </div>
+
+</template>
+
+<script>
+export default {
+  name: "Person",
+  beforeCreate() {
+    console.log('beforeCreate')
+  },
+  setup() {
+    console.log('setup')
+    //数据,原来都是写在data中的，此时的name，age，tel都不是响应式的数据
+    let name = '张三'
+    let age = 18
+    let tel = '135225522'
+
+    //方法
+    function changeName() {
+      name = 'zhang.san' //注意：这样修改name，页面是没有变化的
+      console.log(name)//name确实修改了，但name不是响应式的
+    }
+
+    function changeAge() {
+      age += 1 //注意：这样修改age，页面是没有变化的
+      console.log(age) //age确实修改了，但age不是响应式的
+    }
+
+    function showTel() {
+      alert(tel)
+    }
+    // 将数据、方法交出去，模板中才可以使用
+    return {name, age, tel, changeName, changeAge, showTel}
+    // setup的返回值也可以是一个渲染函数
+    // return ()=>'哈哈'
+  }
+}
+</script>
+
+<style scoped>
+.person {
+  background-color: #2c3e50;
+  box-shadow: 0 0 10px;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+button {
+  margin: 5px;
+}
+</style>
